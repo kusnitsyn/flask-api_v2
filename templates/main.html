@@ -1,0 +1,310 @@
+{% extends 'base.html' %}
+{% include 'header.html' %}
+
+
+
+{% block title %} Home {% endblock %}
+
+
+
+{% block body %}
+
+<div class="container">
+    <div class="row">
+        <div class="col md-12">
+
+            <div class="jumbotron p-3">
+
+                <h2>Manage <b>Products </b>  <button type="button"  class="btn btn-success float-right"
+                data-toggle="modal" data-target="#mymodal">Add New Products</button> </h2>
+
+
+                {% with messages = get_flashed_messages() %}
+
+                {% if messages %}
+
+                {% for message in messages %}
+
+                <div class="alert alert-success alert-dismissable" role="alert">
+
+                    <button type="button" class="close" data-dismiss="alert" aria-label="close">
+
+                        <span aria-hidden="true">x</span>
+
+                    </button>
+
+
+                {{message}}
+
+
+                </div>
+
+
+                {% endfor %}
+
+                {% endif %}
+                {% endwith %}
+
+
+                <table class="table table-hover table-dark">
+
+                    <tr>
+
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Arrival date</th>
+                        <th>Category</th>
+                        <th>Country</th>
+                        <th>Price</th>
+
+                    </tr>
+
+
+                   {% for row in products %}
+                    <tr>
+                        <td>{{row.id}}</td>
+                        <td>{{row.name}}</td>
+                        <td>{{row.arrival_date}}</td>
+                        <td>{{row.category}}</td>
+                        <td>{{row.country}}</td>
+                        <td>{{row.price}}</td>
+
+                        <td>
+                            <a href="/update/{{row.id}}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{row.id}}">Edit</a>
+                            <a href="/delete/{{row.id}}" class="btn btn-danger btn-xs" onclick="return confirm('Are You Sure To Delete ?')">Delete</a>
+
+
+                        </td>
+
+                    </tr>
+
+
+                  <!-- Modal Edit Employee-->
+<div id="modaledit{{row.id}}" class="modal fade" role="dialog">
+   <div class="modal-dialog">
+
+
+      <div class="modal-content">
+
+
+         <div class="modal-header">
+
+
+            <h4 class="modal-title">Update Information</h4>
+
+
+         </div>
+
+
+         <div class="modal-body">
+
+
+            <form action="{{url_for('api_update')}}" method="POST">
+
+
+               <div class="form-group">
+
+
+                  <label>Name:</label>
+                   <input type="hidden"  name="id" value="{{row.id}}">
+
+                  <input type="text" class="form-control" name="name" value="{{row.name}}">
+
+
+               </div>
+
+
+
+               <div class="form-group">
+
+
+                  <label>Arrival date:</label>
+
+                  <input type="text" class="form-control" name="email" value="{{row.arrival_date}}">
+
+
+               </div>
+
+
+               <div class="form-group">
+
+
+                  <label>Category:</label>
+
+                  <input type="text" class="form-control" name="phone" value="{{row.category}}">
+
+
+               </div>
+
+
+                <div class="form-group">
+
+
+                  <label>Country:</label>
+
+                  <input type="text" class="form-control" name="phone" value="{{row.country}}">
+
+
+               </div>
+
+                <div class="form-group">
+
+
+                  <label>Price:</label>
+
+                  <input type="text" class="form-control" name="phone" value="{{row.price}}">
+
+
+               </div>
+
+
+               <div class="form-group">
+
+
+                  <button class="btn btn-primary" type="submit">Update</button>
+
+
+               </div>
+
+
+            </form>
+
+
+         </div>
+
+
+         <div class="modal-footer">
+
+
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+
+         </div>
+
+
+      </div>
+
+
+   </div>
+
+</div>
+
+
+                    {% endfor %}
+
+
+                </table>
+
+
+            </div>
+
+
+
+                  <!-- Modal Add Employee-->
+
+
+<div id="mymodal" class="modal fade" role="dialog">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+
+            <h4 class="modal-title">Add product</h4>
+         </div>
+         <div class="modal-body">
+
+            <form action="{{url_for('api_write')}}" method="POST">
+
+
+               <div class="form-group">
+
+                  <label>Name:</label>
+                  <input type="text" class="form-control" name="name" required="1">
+
+
+               </div>
+
+
+                <div class="form-group">
+
+
+                  <label>Arrival Date:</label>
+                  <input type="text" class="form-control" name="arrival_date" required="1">
+
+
+               </div>
+
+
+                <div class="form-group">
+
+
+                  <label>Category:</label>
+                  <input type="text" class="form-control" name="category" required="1">
+
+
+               </div>
+
+                 <div class="form-group">
+
+
+                  <label>Country:</label>
+                  <input type="text" class="form-control" name="country" required="1">
+
+
+               </div>
+
+                 <div class="form-group">
+
+
+                  <label>Price:</label>
+                  <input type="text" class="form-control" name="price" required="1">
+
+
+               </div>
+
+
+
+               <div class="form-group">
+
+
+                  <button class="btn btn-primary" type="submit">Add product</button>
+
+
+               </div>
+
+
+            </form>
+
+
+         </div>
+
+
+         <div class="modal-footer">
+
+
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+
+         </div>
+
+
+      </div>
+
+
+   </div>
+
+
+</div>
+
+
+
+
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+{% endblock %}

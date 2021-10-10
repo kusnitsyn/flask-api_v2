@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Products in stock</title>
+</head>
+<body>
+<h2>Products info</h2>
+<form method="post" action="/add_product">
+    <label for="name">Product name:</label><br>
+    <input type="text" name="name"><br>
+    <label for="arrival_date">Arrival date:</label><br>
+    <input type="text" name="arrival_date"><br>
+    <label for="category">Product category:</label><br>
+    <input type="text" name="category"><br>
+    <label for="country">Country:</label><br>
+    <input type="text" name="country"><br>
+    <label for="price">Price:</label><br>
+    <input type="text" name="price"><br>
+    <button type="submit">Add message</button>
+</form>
+
+<h3>Products list</h3>
+{% for product in products %}
+#<div>
+#    {{product.id}}&nbsp;
+#    {{product.name}}&nbsp;
+#    {{product.arrival_date}}&nbsp;
+#    {{product.category}}&nbsp;
+#    {{product.country}}&nbsp;
+#    {{product.price}}&nbsp;
+#</div>
+#{% endfor %}
+<div>
+    <table class="table table-hover table-dark">
+        <tr>
+
+            <th>ID</th>
+            <th>Name</th>
+            <th>Arrival date</th>
+            <th>Category</th>
+            <th>Country</th>
+            <th>Price</th>
+
+        </tr>
+        {% for row in employees %}
+        <tr>
+            <td>{{product.id}}</td>
+            <td>{{product.name}}</td>
+            <td>{{product.arrival_date}}</td>
+            <td>{{product.category}}</td>
+            <td>{{product.country}}</td>
+            <td>{{product.price}}</td>
+
+            <td>
+                <a href="/update/{{product.id}}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{product.id}}">Edit</a>
+                <a href="/delete/{{product.id}}" class="btn btn-danger btn-xs" onclick="return confirm('Are You Sure To Delete ?')">Delete</a>
+            </td>
+
+        </tr>
+    </table>
+</div>
+    {% endfor %}
+
+</body>
+</html>
