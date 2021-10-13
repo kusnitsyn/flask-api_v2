@@ -2,7 +2,7 @@ from flask import Flask, request, Response, json, render_template, redirect, fla
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://python:python@localhost/python'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://python:python@54.93.228.80/python'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -56,13 +56,13 @@ def api_write():
 @app.route('/update', methods = ['GET', 'POST'])
 def api_update():
     if request.method == 'POST':
-        product = Products.query.get(request.form.get('id'))
+        row = Products.query.get(request.form.get('id'))
 
-        product.name = request.form['name']
-        product.arrival_date = request.form['arrival_date']
-        product.category = request.form['category']
-        product.country = request.form['country']
-        product.price = request.form['price']
+        row.name = request.form['name']
+        row.arrival_date = request.form['arrival_date']
+        row.category = request.form['category']
+        row.country = request.form['country']
+        row.price = request.form['price']
 
         db.session.commit()
 
