@@ -11,7 +11,7 @@ db = SQLAlchemy(app)
 class Products(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), nullable=False)
-    arrival_date = db.Column(db.Integer, nullable=False)
+    arrival_date = db.Column(db.String, nullable=False)
     category = db.Column(db.String(80), nullable=False)
     country = db.Column(db.String(80), nullable=False)
     price = db.Column(db.Integer, nullable=False)
