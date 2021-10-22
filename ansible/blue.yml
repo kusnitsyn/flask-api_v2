@@ -1,0 +1,62 @@
+---
+- name: get DB ip
+  hosts: tag_Name_DedicatedDB
+  tasks: []
+
+
+
+- name: green deployment
+  hosts: tag_Ansible_Blue
+  tasks:
+
+    - name: Update and upgrade apt packages
+      become: true
+      apt:
+        update_cache: yes
+        pkg:
+          - python3
+          - python3-pip
+          - gcc
+          - g++
+          - make
+          - libpq-dev
+          - python3-dev
+
+    - name: git clone
+      ansible.builtin.git:
+        repo: https://github.com/kusnitsyn/flask-api_v2.git
+        dest: /home/ubuntu/project
+        single_branch: yes
+        version: main
+        force: yes
+
+    - name: replace db ip
+      ansible.builtin.lineinfile:
+       path: /home/ubuntu/project/app.py
+       regexp: '^(.*)SQLALCHEMY_DATABASE_URI(.*)'
+       line: "app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://python:python@{{ hostvars[groups['tag_Name_DedicatedDB'][0]]['ansible_eth0']['ipv4']['address'] }}/python'"
+
+    - name: Pip install requirements
+      pip:
+        requirements: /home/ubuntu/project/requirements.txt
+
+    - name: Pip install Gunicorn
+      pip:
+        name: gunicorn
+
+    - name: Kill current gunicorn if any running
+      ansible.builtin.command: pkill -f gunicorn
+      async: True
+      poll: 0
+
+    - name: wait 3
+      pause:
+        seconds: 3
+
+    - name: run flaskapi on web server
+      ansible.builtin.command: /home/ubuntu/.local/bin/gunicorn --bind=0.0.0.0:5000 --chdir /home/ubuntu/project app:app --daemon
+      async: 45
+      poll: 0
+
+- name: Switcher configurator
+  import_playbook:  nginx.yml
