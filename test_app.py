@@ -1,20 +1,12 @@
+from app import json_info, json_add
 
-import pytest
+def test_flask_app_mock(
+        flask_app_mock,
+        api_mock,
+        mock_get_sqlalchemy,
+):
+    mock_get_sqlalchemy.first.return_value = api_mock
+    with flask_app_mock.app_context():
+        response = json_info()
 
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from app import Products
-
-
-
-
-@pytest.fixture
-def api_mock():
-    api_products = Products (
-        name='Potato',
-        arrival_date='12.07.1995',
-        category='Vegies',
-        country='UA',
-        price='20',
-    )
-    return api_products
+    assert response == response
