@@ -1,7 +1,8 @@
-{% for host in groups['tag_Ansible_Blue'] %}
-        server {{ hostvars[host]['ansible_facts']['eth0']['ipv4']['address'] }}:5000;
+log_format upstreamlog '$server_name to: $upstream_addr [$request]'
+  'upstread_response_time $upstream_response_time '
+  'msec #msec request_time $request_time';
 
-{% endfor %}
+upstream flaskapi {
 {% for host in groups['tag_Ansible_Green'] %}
         server {{ hostvars[host]['ansible_facts']['eth0']['ipv4']['address'] }}:5000;
 
@@ -21,4 +22,3 @@
                 proxy_pass http://localhost:8080/github-webhook;
         }
     }
-

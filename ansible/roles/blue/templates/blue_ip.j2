@@ -7,10 +7,6 @@ upstream flaskapi {
         server {{ hostvars[host]['ansible_facts']['eth0']['ipv4']['address'] }}:5000;
 
 {% endfor %}
-{% for host in groups['tag_Ansible_Green'] %}
-        server {{ hostvars[host]['ansible_facts']['eth0']['ipv4']['address'] }}:5000;
-
-{% endfor %}
 
     }
 
@@ -26,4 +22,3 @@ upstream flaskapi {
                 proxy_pass http://localhost:8080/github-webhook;
         }
     }
-

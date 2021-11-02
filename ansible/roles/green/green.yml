@@ -59,4 +59,4 @@
       poll: 0
 
 - name: Switcher configurator
-  import_playbook:  nginx.yml
+  import_playbook:  ./nginx_green.yml

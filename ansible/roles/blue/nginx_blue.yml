@@ -1,0 +1,17 @@
+- name: Collect facts
+  hosts: tag_Ansible_Blue
+  tasks: []
+
+- name: Switcher configurator
+  hosts: 127.0.0.1
+  connection: local
+
+  tasks:
+   - name: Generate configure file to Nginx
+     template: >
+      src="./templates/blue_ip.j2"
+      dest=/etc/nginx/conf.d/load-balancer.conf
+
+  handlers:
+  - name: Restart Proxy
+    service: name=nginx state=restarted

@@ -3,8 +3,6 @@
   hosts: tag_Name_DedicatedDB
   tasks: []
 
-
-
 - name: green deployment
   hosts: tag_Ansible_Blue
   tasks:
@@ -59,4 +57,4 @@
       poll: 0
 
 - name: Switcher configurator
-  import_playbook:  nginx.yml
+  import_playbook:  /etc/ansible/roles/blue/nginx_blue.yml
