@@ -145,13 +145,10 @@ def delete(id):
 @app.route('/json_delete/<id>/', methods=['DELETE'])
 def json_delete(id):
     json_data = request.get_json()
-    if not json_data:
-        return {"message": "No input data provided"}, 400
-    else:
-        product = Products.query.get(id)
-        db.session.delete(product)
-        db.session.commit()
-        return product_schema.jsonify(product)
+    product = Products.query.get(id)
+    db.session.delete(product)
+    db.session.commit()
+    return product_schema.jsonify(product)
 
 
 if __name__ == "__main__":
