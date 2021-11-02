@@ -4,7 +4,7 @@ from flask_marshmallow import Marshmallow
 from marshmallow import ValidationError
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://python:python@127.0.0.1/python'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://root:root@127.0.0.1/root'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
