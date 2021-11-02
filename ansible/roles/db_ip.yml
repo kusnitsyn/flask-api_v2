@@ -1,0 +1,10 @@
+---
+- name: replace db ip
+    hosts: 127.0.0.1
+    connection: local
+
+    tasks:
+      ansible.builtin.lineinfile:
+       path: /home/ubuntu/project/app.py
+       regexp: '^(.*)SQLALCHEMY_DATABASE_URI(.*)'
+       line: "app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://python:python@127.0.0.1/python'"
