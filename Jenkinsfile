@@ -16,9 +16,9 @@ pipeline {
             }
             steps {
                 git branch: 'main', url: 'https://github.com/kusnitsyn/flask-api_v2.git'
-                sh 'pip3 install -r requirements.txt'
-                sh 'nohup python3 app.py &'
-                sh 'python3 test.py'
+                sh 'pip install -r requirements.txt'
+                sh 'nohup python app.py &'
+                sh 'python test.py'
             }
         }
         stage('Push Notification') {
