@@ -1,10 +1,5 @@
 pipeline {
-    agent { 
-       dockerfile { 
-            filename 'Dockerfile'
-            args '-u root:root'
-          }
-    }
+    agents none
     stages {
         stage('Disable Blue') {
             agent any
@@ -13,6 +8,12 @@ pipeline {
             }
         }
         stage('Test') {
+            agent { 
+                dockerfile { 
+                    filename 'Dockerfile'
+                    args '-u root:root'
+                  }
+            }
             steps {
                 git branch: 'main', url: 'https://github.com/kusnitsyn/flask-api_v2.git'
                 sh 'pip3 install -r requirements.txt'
