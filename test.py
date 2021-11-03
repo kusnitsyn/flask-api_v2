@@ -28,7 +28,7 @@ class testApi(unittest.TestCase):
 
     def test2(self):
         resp = requests.post(self.URL + '/json_add', json=self.data)
-        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(resp.status_code, 201)
 
         print("test 2 done")
 
@@ -37,7 +37,7 @@ class testApi(unittest.TestCase):
         test_id = Products.query.filter_by(name='test_potato').all()
         for id in test_id:
             resp = requests.put(self.URL + '/json_update/' + str(id.id) + '/', json=self.update_data)
-            self.assertEqual(resp.status_code, 200)
+            self.assertEqual(resp.status_code, 204)
 
         print("Test 3 done")
 
@@ -46,7 +46,7 @@ class testApi(unittest.TestCase):
         test_id = Products.query.filter_by(name='test_potato').all()
         for id in test_id:
             resp = requests.delete(self.URL + '/json_delete/' + str(id.id) + '/')
-            self.assertEqual(resp.status_code, 200)
+            self.assertEqual(resp.status_code, 204)
 
         print("Test 4 done")
 
