@@ -1,6 +1,6 @@
 FROM postgres:alpine
 
-RUN apk update && apk add python3 py3-pip postgresql-dev gcc python3-dev musl-dev make libc-dev g++
+RUN apk update && apk add python3 py3-pip postgresql-dev gcc python3-dev musl-dev make libc-dev g++ git
 
 RUN adduser -S python
 
