@@ -15,7 +15,7 @@ pipeline {
                   }
             }
             steps {
-                git branch: 'main', url: 'https://github.com/kusnitsyn/flask-api_v2.git'
+                sh 'git clone -b main https://github.com/kusnitsyn/flask-api_v2.git  && cd flask-api_v2/'
                 sh 'pip install -r requirements.txt'
                 sh 'nohup python app.py &'
                 sh 'python test.py'
