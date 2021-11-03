@@ -11,7 +11,6 @@ pipeline {
             agent { 
                 dockerfile { 
                     filename 'Dockerfile'
-                    dir '/home/ubuntu/project'
                     args '-u root:root'
                 }
             }
